@@ -1,0 +1,48 @@
+{
+  "name": "@easydigitalstudio/base-microservice",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "start:watch": "nodemon --watch app index",
+    "lint": "eslint app/**",
+    "lint:fix": "eslint app/** --fix",
+    "build": "babel app --out-dir lib",
+    "dev": "npm-run-all --parallel start:watch lint:watch",
+    "test": "HTTP_PROXY= ./node_modules/.bin/_mocha --require ./env.js --require babel-polyfill --require babel-core/register \"app/**/*.test.js\" --timeout 10000",
+    "tdd": "npm run test -- --watch app/**/*.test.js",
+    "cover": "HTTP_PROXY= ./node_modules/.bin/nyc ./node_modules/.bin/_mocha --require ./env.js --require babel-core/register \"app/**/*.js\"",
+    "cover:view": "nyc report --reporter=lcov && open ./coverage/lcov-report/index.html",
+    "audit": "npm audit",
+    "pre-commit": "npm-run-all --parallel cover lint audit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@easydigitalstudio/express-server": "^1.0.3",
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "express": "^4.16.4",
+    "pre-commit": "^1.2.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "dotenv-extended": "^2.3.0",
+    "eslint": "^5.10.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.18.8",
+    "npm-run-all": "^4.1.5",
+    "nyc": "^11.9.0",
+    "proxyquire": "^2.1.0",
+    "supertest": "^3.3.0"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/@easydigitalstudio/express-server/eslint.js"
+  },
+  "pre-commit": "pre-commit"
+}
